@@ -20,4 +20,8 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME:$IMAGE_TAG
+      - printf '{"Version":"1.0","ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME:$IMAGE_TAG > imageDetail.json
 
+artifacts:
+  files:
+    - imageDetail.json
