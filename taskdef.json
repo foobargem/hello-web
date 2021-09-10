@@ -14,8 +14,8 @@
                     "awslogs-stream-prefix": "ecs"
                 }
             },
-            "memory": null,
-            "memoryReservation": null,
+            "memory": <ContainerMemory>,
+            "memoryReservation": <ContainerMemory>,
             "portMappings": [
                 {
                     "containerPort": 80,

@@ -2,8 +2,10 @@ version: 0.2
 
 env:
   parameter-store:
-    ContainerCpuUnit: "ContainerCpuUnit"
-    ContainerMemory: "ContainerMemory"
+    #ContainerCpuUnit: "ContainerCpuUnit"
+    ContainerCpuUnit: 256
+    #ContainerMemory: "ContainerMemory"
+    ContainerMemory: 512
 
 phases:
   pre_build:
