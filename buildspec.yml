@@ -31,6 +31,7 @@ phases:
       #- sed -i -e "s/<ContainerMemory>/${ContainerMemory}/g" taskdef.json
       - sed -i -e "s/<ContainerMemory>/512/g" taskdef.json
       - sed -i -e "s/<ContainerCpuUnit>/${ContainerCpuUnit}/g" taskdef.json
+      - sed -i -e "s/<IMAGE1_NAME>/${IMAGE_NAME}:${IMAGE_TAG}/g" taskdef.json
 
 artifacts:
   files:
