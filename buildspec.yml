@@ -2,10 +2,8 @@ version: 0.2
 
 env:
   parameter-store:
-    #ContainerCpuUnit: "ContainerCpuUnit"
-    ContainerCpuUnit: 256
-    #ContainerMemory: "ContainerMemory"
-    ContainerMemory: 512
+    ContainerCpuUnit: "ContainerCpuUnit"
+    ContainerMemory: "ContainerMemory"
 
 phases:
   pre_build:
@@ -31,6 +29,7 @@ phases:
       - sed -i -e "s/<AWS_ACCOUNT_ID>/${AWS_ACCOUNT_ID}/g" taskdef.json
       - sed -i -e "s;<EcsRoleArn>;arn:aws:iam::${AWS_ACCOUNT_ID}:role/allu-app-role;g" taskdef.json
       #- sed -i -e "s/<ContainerMemory>/${ContainerMemory}/g" taskdef.json
+      - sed -i -e "s/<ContainerMemory>/512/g" taskdef.json
       - sed -i -e "s/<ContainerCpuUnit>/${ContainerCpuUnit}/g" taskdef.json
 
 artifacts:
