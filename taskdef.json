@@ -2,7 +2,7 @@
     "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/allu-cicd-role",
     "containerDefinitions": [
         {
-            "name": "allu-web",
+            "name": "test-web",
             "image": "<IMAGE1_NAME>",
             "logConfiguration":
             {
