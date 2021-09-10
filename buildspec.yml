@@ -32,7 +32,7 @@ phases:
       - sed -i -e "s/<ContainerMemory>/512/g" taskdef.json
       #- sed -i -e "s/<ContainerCpuUnit>/${ContainerCpuUnit}/g" taskdef.json
       - sed -i -e "s/<ContainerCpuUnit>/256/g" taskdef.json
-      - sed -i -e "s/<IMAGE1_NAME>/${IMAGE_NAME}:${IMAGE_TAG}/g" taskdef.json
+      - sed -i -e "s/<IMAGE1_NAME>/$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com\/$IMAGE_NAME:$IMAGE_TAG/g" taskdef.json
 
 artifacts:
   files:
