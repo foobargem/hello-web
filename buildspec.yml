@@ -21,8 +21,13 @@ phases:
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME:$IMAGE_TAG
       - printf '{"Version":"1.0","ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME:$IMAGE_TAG > imageDetail.json
+      - sed -i -e "s/<AWS_ACCOUNT_ID>/${AWS_ACCOUNT_ID}/g" taskdef.json
+      - sed -i -e "s;<EcsRoleArn>;arn:aws:iam::${AWS_ACCOUNT_ID}:role/gsba-app-role;g" taskdef.json
+      - sed -i -e "s/<ContainerMemory>/${ContainerMemory}/g" taskdef.json
+      - sed -i -e "s/<ContainerCpuUnit>/${ContainerCpuUnit}/g" taskdef.json
 
 artifacts:
   files:
     - imageDetail.json
+    - taskdef.json
     - appspec.yml
