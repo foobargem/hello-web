@@ -5,9 +5,9 @@ COPY helloweb /app
 
 RUN pip install django
 
-EXPOSE 8000
+EXPOSE 80
 STOPSIGNAL SIGQUIT
 
 WORKDIR /app
 
-CMD ["/usr/local/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["/usr/local/bin/python", "manage.py", "runserver", "0.0.0.0:80"]
