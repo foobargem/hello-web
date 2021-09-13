@@ -3,7 +3,9 @@ FROM python:3.9.7-alpine3.13
 RUN mkdir -p /app
 COPY helloweb /app
 
-RUN pip install django
+RUN apk update && \
+    apk add bind-tools && \
+    pip install django
 
 EXPOSE 80
 STOPSIGNAL SIGQUIT
