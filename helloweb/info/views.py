@@ -15,7 +15,7 @@ def index(request):
         'stderr': stderr.decode(),
     })
 
-    cmd = ['dig', 'dev.allu']
+    cmd = ['dig', 'rds.allu.dev']
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = proc.communicate()
 
