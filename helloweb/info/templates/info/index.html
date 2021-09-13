@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello web</title>
+  </head>
+  <body>
+    <h1>Hello web</h1>
+
+    {% for rst in results %}
+      <h3>{{ rst.cmd }}</h3>
+
+      <h5>stdout</h5>
+      <pre>{{ rst.stdout|linebreaksbr }}</pre>
+
+      <h5>stderr</h3>
+      <pre>{{ rst.stderr|linebreaksbr }}</pre>
+    {% endfor %}
+
+  </body>
+</html>

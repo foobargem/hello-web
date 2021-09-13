@@ -1,6 +1,13 @@
-FROM nginx:1.21.1-alpine
-COPY data/etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-ENTRYPOINT ["/docker-entrypoint.sh"]
-EXPOSE 80
+FROM python:3.9.7-alpine3.13
+
+RUN mkdir -p /app
+COPY helloweb /app
+
+RUN pip install django
+
+EXPOSE 8000
 STOPSIGNAL SIGQUIT
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+
+WORKDIR /app
+
+CMD ["/usr/local/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
