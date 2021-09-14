@@ -29,6 +29,6 @@
     "networkMode": "awsvpc",
     "cpu": "<ContainerCpuUnit>",
     "memory": "<ContainerMemory>",
-    "family": "webtest",
+    "family": "WebApp",
     "taskRoleArn": "<EcsRoleArn>"
 }
