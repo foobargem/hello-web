@@ -2,8 +2,28 @@ version: 0.2
 
 env:
   parameter-store:
+    Environment: "Environment"
+    AppKey: "AppKey"
+    AppDebug: "AppDebug"
+    DomainName: "DomainName"
+    RdsEndpointCname: "RdsEndpointCname"
+    RdsAppUsername: "RdsAppUsername"
+    RdsAppuserPass: "RdsAppuserPass"
+    SecureCookie: "SecureCookie"
+    ElasticacheEndpointCname: "ElasticacheEndpointCname"
+    ImagesBucketName: "ImagesBucketName"
+    NonCacheBucketName : "NonCacheBucketName"
+    CloudFrontImageUrl: "CloudFrontImageUrl"
+    EkycBucketName: "EkycBucketName"
+    DomesticEmailAddress: "DomesticEmailAddress"
+    OverseasEmailAddress: "OverseasEmailAddress"
+    DomesticFromAddress: "DomesticFromAddress"
+    OverseasFromAddress: "OverseasFromAddress"
     ContainerCpuUnit: "ContainerCpuUnit"
     ContainerMemory: "ContainerMemory"
+    MailDriver: "MailDriver"
+    CuenoteUser: "CuenoteUser"
+    CuenoteSecret: "CuenoteSecret"
 
 phases:
   pre_build:
@@ -14,6 +34,27 @@ phases:
 
   build:
     commands:
+      - echo Build started on `date`
+      - sed -i -e "s/^APP_ENV=.*/APP_ENV=${Environment}/g" .env-local-docker
+      - sed -i -e "s@^APP_KEY=.*@APP_KEY=${AppKey}@g" .env-local-docker
+      - sed -i -e "s/^APP_DEBUG=.*/APP_DEBUG=${AppDebug}/g" .env-local-docker
+      - sed -i -e "s/^APP_URL=.*/APP_URL=https:\/\/www.${DomainName}/g" .env-local-docker
+      - sed -i -e "s/^DB_HOST=.*/DB_HOST=${RdsEndpointCname}/g" .env-local-docker
+      - sed -i -e "s/^DB_USERNAME=.*/DB_USERNAME=${RdsAppUsername}/g" .env-local-docker
+      - sed -i -e "s/^DB_PASSWORD=.*/DB_PASSWORD=${RdsAppuserPass}/g" .env-local-docker
+      - sed -i -e "s/^SESSION_SECURE_COOKIE=.*/SESSION_SECURE_COOKIE=${SecureCookie}/g" .env-local-docker
+      - sed -i -e "s/^REDIS_HOST=.*/REDIS_HOST=${ElasticacheEndpointCname}/g" .env-local-docker
+      - sed -i -e "s/^AWS_BUCKET=.*/AWS_BUCKET=${ImagesBucketName}/g" .env-local-docker
+      - sed -i -e "s/^AWS_BUCKET_NO_CACHE=.*/AWS_BUCKET_NO_CACHE=${NonCacheBucketName}/g" .env-local-docker
+      - sed -i -e "s@^IMAGE_URL=.*@IMAGE_URL=${CloudFrontImageUrl}@g" .env-local-docker
+      - sed -i -e "s/^AWS_BUCKET_USER_INFO=.*/AWS_BUCKET_USER_INFO=${EkycBucketName}/g" .env-local-docker
+      - sed -i -e "s/^ALLU_EMAIL_DOMESTIC=.*/ALLU_EMAIL_DOMESTIC=${DomesticEmailAddress}/g" .env-local-docker
+      - sed -i -e "s/^ALLU_EMAIL_OVERSEAS=.*/ALLU_EMAIL_OVERSEAS=${OverseasEmailAddress}/g" .env-local-docker
+      - sed -i -e "s/^MAIL_FROM_DOMESTIC_ADDRESS=.*/MAIL_FROM_DOMESTIC_ADDRESS=${DomesticFromAddress}/g" .env-local-docker
+      - sed -i -e "s/^MAIL_FROM_ADDRESS=.*/MAIL_FROM_ADDRESS=${OverseasFromAddress}/g" .env-local-docker
+      - sed -i -e "s/^MAIL_DRIVER=.*/MAIL_DRIVER=${MailDriver}/g" .env-local-docker
+      - sed -i -e "s/^CUENOTE_USER=.*/CUENOTE_USER=${CuenoteUser}/g" .env-local-docker
+      - sed -i -e "s/^CUENOTE_SECRET=.*/CUENOTE_SECRET=${CuenoteSecret}/g" .env-local-docker
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $IMAGE_NAME:$IMAGE_TAG .
@@ -29,10 +70,9 @@ phases:
       - sed -i -e "s/<AWS_ACCOUNT_ID>/${AWS_ACCOUNT_ID}/g" taskdef.json
       - sed -i -e "s;<EcsRoleArn>;arn:aws:iam::${AWS_ACCOUNT_ID}:role/allu-app-role;g" taskdef.json
       - sed -i -e "s/<ContainerMemory>/${ContainerMemory}/g" taskdef.json
-      #- sed -i -e "s/<ContainerMemory>/512/g" taskdef.json
       - sed -i -e "s/<ContainerCpuUnit>/${ContainerCpuUnit}/g" taskdef.json
-      #- sed -i -e "s/<ContainerCpuUnit>/256/g" taskdef.json
       - sed -i -e "s/<IMAGE1_NAME>/$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com\/$IMAGE_NAME:$IMAGE_TAG/g" taskdef.json
+
 
 artifacts:
   files:
