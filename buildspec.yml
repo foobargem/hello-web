@@ -18,7 +18,7 @@ env:
     DomesticEmailAddress: "DomesticEmailAddress"
     OverseasEmailAddress: "OverseasEmailAddress"
     DomesticFromAddress: "DomesticFromAddress"
-    OverseasFromAddress: "OverseasFromAddress"
+    #OverseasFromAddress: "OverseasFromAddress"
     ContainerCpuUnit: "ContainerCpuUnit"
     ContainerMemory: "ContainerMemory"
     MailDriver: "MailDriver"
@@ -51,7 +51,7 @@ phases:
       - sed -i -e "s/^ALLU_EMAIL_DOMESTIC=.*/ALLU_EMAIL_DOMESTIC=${DomesticEmailAddress}/g" .env-local-docker
       - sed -i -e "s/^ALLU_EMAIL_OVERSEAS=.*/ALLU_EMAIL_OVERSEAS=${OverseasEmailAddress}/g" .env-local-docker
       - sed -i -e "s/^MAIL_FROM_DOMESTIC_ADDRESS=.*/MAIL_FROM_DOMESTIC_ADDRESS=${DomesticFromAddress}/g" .env-local-docker
-      - sed -i -e "s/^MAIL_FROM_ADDRESS=.*/MAIL_FROM_ADDRESS=${OverseasFromAddress}/g" .env-local-docker
+      #- sed -i -e "s/^MAIL_FROM_ADDRESS=.*/MAIL_FROM_ADDRESS=${OverseasFromAddress}/g" .env-local-docker
       - sed -i -e "s/^MAIL_DRIVER=.*/MAIL_DRIVER=${MailDriver}/g" .env-local-docker
       - sed -i -e "s/^CUENOTE_USER=.*/CUENOTE_USER=${CuenoteUser}/g" .env-local-docker
       - sed -i -e "s/^CUENOTE_SECRET=.*/CUENOTE_SECRET=${CuenoteSecret}/g" .env-local-docker
