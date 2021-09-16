@@ -55,7 +55,8 @@ def index(request):
         'cmd': 'telnet ec.allu.dev 6379',
         'stdout': ec_stdout,
         'stderr': '',
-    }, {
+    })
+    results.append({
         'cmd': 'telnet rds.allu.dev 3306',
         'stdout': rds_stdout,
         'stderr': '',
