@@ -37,6 +37,7 @@ def index(request):
     })
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(3)
     res = sock.connect_ex(('ec.allu.dev', 6379))
     _stdout = 'not open'
     if res == 0:
