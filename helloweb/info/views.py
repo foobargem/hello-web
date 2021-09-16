@@ -38,17 +38,29 @@ def index(request):
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(3)
+
     res = sock.connect_ex(('ec.allu.dev', 6379))
-    _stdout = 'not open'
+    ec_stdout = 'not open'
     if res == 0:
-        _stdout = 'open'
+        ec_stdout = 'open'
+
+    res = sock.connect_ex(('rds.allu.dev', 3306))
+    rds_stdout = 'not open'
+    if res == 0:
+        rds_stdout = 'open'
+
     sock.close()
 
     results.append({
         'cmd': 'telnet ec.allu.dev 6379',
-        'stdout': _stdout,
+        'stdout': ec_stdout,
+        'stderr': '',
+    }, {
+        'cmd': 'telnet rds.allu.dev 3306',
+        'stdout': rds_stdout,
         'stderr': '',
     })
+
 
     return render(request, 'info/index.html', {
         'results': results,
